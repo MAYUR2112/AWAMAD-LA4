@@ -1,53 +1,17 @@
-const express = require("express");
-const path = require("path");
-const app = express();
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-var MongoClient = require('mongodb').MongoClient
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-MongoClient.connect('mongodb://localhost:27017/photo', function (err, db) {
-  if (err) throw err
-
-  db.collection('users').find().toArray(function (err, result) {
-    if (err) throw err
-
-    console.log(result)
-  })
-})
-
-// Database
-//var mongo = require('mongodb');
-//var monk = require('monk');
-//var db = monk('localhost:27017/nodephoto');
-
-
-// Make our db accessible to our router
-//app.use(function(req,res,next){
-//  req.db = db;
-//  next();
-//});
-
-
-
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.set('views', path.join(__dirname + '/views'))
-
-app.set('view engine', "ejs");
-
-app.use(express.static("public"));
-
-app.get("/", (req, res) => {
-    res.render("home");
-});
-
-app.post('/contactus', (req, res) => {
-    console.log(req.body);
-    res.send('Thank you!s')
-})
-
-
-const PORT = 3333 || process.env.PORT;
-app.listen(PORT, () => console.log("Listening on 3333"));
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
